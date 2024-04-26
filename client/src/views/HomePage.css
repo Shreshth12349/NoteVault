@@ -1,0 +1,26 @@
+body {
+    padding-bottom: 1rem;
+}
+.home {
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    flex-flow: column;
+    align-items: center;
+    height: fit-content;
+    transition: 0.2s;
+}
+.home.blurred {
+    filter: blur(3px);
+    pointer-events: none;
+    user-select: none;
+    transition: 0.2s;
+    opacity: 0.7;
+}
+
+.note-card-edit-mode {
+    pointer-events: none;
+}
+.active-note-card {
+    transition: 1s;
+}

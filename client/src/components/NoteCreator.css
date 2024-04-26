@@ -1,0 +1,64 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.input-area {
+    display: flex;
+    background: #ECEBE4;
+    position: relative;
+    margin: 4rem;
+    font-size: 20px;
+    min-height: 2em;
+    text-align: left;
+    border-radius: 10px;
+    width: 25em;
+    resize: none;
+    height: auto;
+    align-content: center;
+    border: 1px solid black;;
+    overflow: hidden;
+    flex-flow: column;
+    padding: 10px 10px 10px 10px;
+}
+.focus {
+
+    box-shadow: 0 0 7px 2px;
+}
+
+.note-body-input {
+    background: none;
+    position: relative;
+    font-size: 20px;
+    min-height: inherit;
+    text-align: left;
+    width: inherit;
+    resize: none;
+    overflow-y: hidden;
+    align-content: center;
+    padding: 8px;
+    border: none;
+}
+.note-title-input {
+    background: none;
+    position: relative;
+    font-size: 20px;
+    font-weight: bold;
+    min-height: inherit;
+    text-align: left;
+    width: inherit;
+    resize: none;
+    overflow-y: hidden;
+    align-content: center;
+    padding: 8px;
+    border: none;
+}
+
+.note-body-input:focus {
+    outline: none;
+}
+.note-title-input:focus {
+    outline: none;
+    font-weight: bold;
+}
+

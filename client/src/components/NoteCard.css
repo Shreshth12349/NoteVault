@@ -1,0 +1,60 @@
+.note-container {
+    display: flex;
+    flex-flow: column;
+    border: 2px solid black;
+    padding: 1em;
+    border-radius: 10px;
+    text-decoration: none;
+    color: black;
+    max-height: 3in;
+    overflow-wrap: break-word;
+    transition: 0.1s;
+    user-select: none;
+}
+.note-container:hover {
+    cursor: pointer;
+    transition: 0.1s;
+    transform: scale(1.03);
+}
+
+.note-title {
+    max-height: 1.5rem;
+    font-weight: bold;
+    resize: none;
+    border: none;
+    font-size: 1.2rem;
+    min-height: 1.4rem;
+    background: none;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    font-family: monospace;
+}
+.note-body:hover {
+    font-weight: normal;
+}
+
+.note-body {
+    margin-top: 0.5em;
+    resize: none;
+    font-size: 1.2rem;
+    border: none;
+    background: none;
+    overflow: hidden;
+    min-height: fit-content;
+    white-space: pre-line;
+    overflow-wrap: break-word;
+    font-family: monospace;
+}
+.note-body:hover {
+    font-weight: normal;
+}
+
+
+
+body:not(.focused) {
+    filter: blur(0.5);
+}
+.empty-placeholder {
+    color: black;
+    font-weight: bold;
+}
