@@ -4,6 +4,7 @@ import NoteCreator from "../components/NoteCreator";
 import React, { useEffect, useState } from "react";
 import NotesContext from "../Contexts/NotesContext";
 import NoteCardEditMode from "../components/NoteCardEditMode";
+import Sidebar from "../components/Sidebar";
 
 function HomePage() {
     const [notes, setNotes] = useState([]);

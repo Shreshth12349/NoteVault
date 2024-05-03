@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan')
 const cors = require('cors');
 const { createNote, notes, getNote, updateNoteBody, updateNoteTitle, updateNoteColor } = require('./data')
+const mongoose = require('mongoose')
 
 const app = express();
 app.use(morgan('tiny'))

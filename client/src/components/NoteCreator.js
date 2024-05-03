@@ -13,6 +13,28 @@ function NoteCreator({onNoteAdded}) {
         titleRef.current.value = ""
         bodyRef.current.value = ""
     }
+    const createNote = async (title, body) => {
+        try {
+            const response = await fetch("http://localhost:5000/notes", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ title, body }),
+            });
+            if (response.ok) {
+                console.log("Note saved successfully!");
+                resetInputArea()
+                if (onNoteAdded) {
+                    onNoteAdded();
+                }
+            } else {
+                console.error("Failed to save note:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
     const handleBlur = async () => {
         setTimeout(() => {
             if ((document.activeElement !== titleRef.current) && (document.activeElement !== bodyRef.current) ) {
@@ -25,33 +47,12 @@ function NoteCreator({onNoteAdded}) {
         }, 1);
     }
 
+
     const checkFields = async () => {
         let title = titleRef.current.value
         let body = bodyRef.current.value
         if((title.trim()) !== "" || (body.trim() !== "")) {
-            try {
-                console.log("try block entered")
-                const response = await fetch("http://localhost:5000/notes", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ title, body }),
-                });
-                console.log("posted")
-                if (response.ok) {
-                    console.log("Note saved successfully!");
-                    resetInputArea()
-                    if (onNoteAdded) {
-                        onNoteAdded();
-                    }
-                } else {
-                    // Request failed
-                    console.error("Failed to save note:", response.statusText);
-                }
-            } catch (error) {
-                console.error("Error:", error);
-            }
+            await createNote(title, body)
         } else { resetInputArea() }
     }
 
@@ -61,6 +62,11 @@ function NoteCreator({onNoteAdded}) {
         const newHeight = inputField.scrollHeight * 2
         inputField.style.height = newHeight + "px";
     };
+
+    const closeButtonClickHandler = async () => {
+        await createNote()
+        setFocus(false)
+    }
     return (
         <div>
             <form>
@@ -83,6 +89,8 @@ function NoteCreator({onNoteAdded}) {
                         onChange={handleChange}
                         name="note-creator-body"
                     />
+                    {Focus && <div className="close-note-creator-button" onClick={closeButtonClickHandler}>Close</div>}
+
                 </div>
 
             </form>

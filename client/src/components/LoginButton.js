@@ -6,7 +6,7 @@ function LoginButton(){
         fontSize: '1rem',
         marginRight: '10px',
         border: '2px solid black',
-        borderRadius: '5px',
+        borderRadius: '1rem',
         textDecoration: 'none',
         color: 'black',
         justifyContent: 'center',

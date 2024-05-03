@@ -7,7 +7,7 @@ function SignUpButton(){
         fontSize: '1rem',
         marginRight: '10px',
         border: '2px solid black',
-        borderRadius: '5px',
+        borderRadius: '1rem',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

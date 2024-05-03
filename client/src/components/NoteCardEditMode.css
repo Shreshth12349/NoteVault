@@ -80,7 +80,7 @@ body:not(.focused) {
 body:not(.focused) {
     filter: blur(0.5);
 }
-.close-button {
+.close-edit-mode-button {
     color: blue;
     font-size: 9px;
     text-align: right;
@@ -91,7 +91,7 @@ body:not(.focused) {
     padding: 3px;
     margin-top: 5px;
 }
-.close-button:hover {
+.close-edit-mode-button:hover {
     cursor: pointer;
     user-select: none;
 }

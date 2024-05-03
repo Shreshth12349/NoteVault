@@ -109,7 +109,7 @@ function NoteCardEditMode(props) {
                 onChange={(e) => handleBodyChange(e)}
                 name="active-note-body"
             />
-            <div className="close-button" onClick={closeButtonClickHandler}>Close</div>
+            <div className="close-edit-mode-button" onMouseEnter={closeButtonClickHandler}>Close</div>
             <ColorSelector
                 showColorPalette={showColorPalette}
                 activateColorPalette={activateColorPalette}
