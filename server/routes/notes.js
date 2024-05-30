@@ -1,7 +1,7 @@
 const express = require('express');
-const Note = require("../models/Note");
+const noteController = require('../controllers/noteController')
+
 const router = express.Router();
-const noteController = require('../controllers/notesController')
 
 //get all notes
 router.get('/', noteController.getAllNotes );
@@ -19,6 +19,6 @@ router.put('/:id', noteController.updateNote )
 router.delete('/:id', noteController.deleteNoteById)
 
 //delete all
-router.delete('/', noteController.deleteAllNotes)
+router.delete('/all', noteController.deleteAllNotes)
 
 module.exports = router;

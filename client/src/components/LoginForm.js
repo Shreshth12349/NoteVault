@@ -1,32 +1,42 @@
-import { useForm } from "react-hook-form";
-import './SignUpForm.css'
+import './LoginForm.css'
+import {useState} from "react";
 function LoginForm(props) {
-    const { register, handleSubmit, errors } = useForm();
 
-    const onSubmit = (data) => {
-        console.log(data);
-    };
+    const handleSubmit =  (e) => {
+        e.preventDefault()
+        console.log(email, password)
+    }
+
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+
 
     return (
-        <div className='sign-up-container'>
-            <div className='form-heading'>Login</div>
-            <div className='form'>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <label>Username</label>
-                    <input
-                        type="text"
-                        name="username"
-                    />
-                    <label>Password</label>
-                    <input
-                        type="password" // \
-                        name="password"
-                    />
-                    <button type="submit">Log in</button>
-                </form>
+        <div className='log-in'>
+            <div className='log-in-container'>
+                <div className='form-heading'>Sign Up</div>
+                <div className='form'>
+                    <form onSubmit={handleSubmit}>
+                        <label form="username">Username</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={email}
+                            onChange={(e)=> setEmail(e.target.value)}
+                        />
+                        <label for="password">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e)=> setPassword(e.target.value)}
+                        />
+                        <button type="submit">Sign up</button>
+                    </form>
+                </div>
             </div>
-
         </div>
+
     );
 }
 

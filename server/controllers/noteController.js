@@ -1,6 +1,6 @@
 const Note = require("../models/Note");
 
-const notesController = {
+const noteController = {
     getAllNotes: async (req, res) => {
         try {
             const allNotes = await Note.find({})
@@ -27,7 +27,7 @@ const notesController = {
 
     createNote: async (req, res) => {
         try {
-            const newNote = new Note({...req.body});
+            const newNote = await new Note({...req.body});
             await newNote.save()
             return res.status(200).json({msg:"new note successfully created"})
         } catch (error) {
@@ -53,7 +53,7 @@ const notesController = {
     deleteNoteById: async (req, res) => {
         const noteId = req.params.id
         try {
-            const deletedNote = Note.findByIdAndDelete(noteId)
+            const deletedNote = await Note.findByIdAndDelete(noteId)
             if (deletedNote) {
                 return res.status(200).json({msg: "Note successfully deleted"})
             }
@@ -62,15 +62,18 @@ const notesController = {
             return res.status(500).json({msg: "failed to delete the note"})
         }
     },
-    deleteAllNotes: async () => {
+    deleteAllNotes: async (req, res) => {
         try {
             const result = await Note.deleteMany({});
-            return { success: true, message: "all documents deleted successfully" };
+            if(result) {
+                return res.status(200).json({msg: "all notes successfully deleted"})
+            }
+            return res.status(404).json({msg: "failed to delete the notes"})
         } catch (error) {
             console.error('Error deleting documents:', error);
-            return { success: false, message: 'An error occurred while deleting documents' };
+            return res.status(500).json({msg: "an error occurred while deleting the notes"});
         }
     }
 }
 
-module.exports = notesController;
+module.exports = noteController;
