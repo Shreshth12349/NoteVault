@@ -1,10 +1,11 @@
 import NotesSection from "../components/NotesSection";
 import './HomePage.css'
 import NoteCreator from "../components/NoteCreator";
-import React, { useEffect, useState } from "react";
+import React, {createContext, useEffect, useState} from "react";
 import NotesContext from "../Contexts/NotesContext";
 import NoteCardEditMode from "../components/NoteCardEditMode";
 import Sidebar from "../components/Sidebar";
+import ActiveNoteContext from "../Contexts/ActiveNoteContext";
 
 function HomePage() {
     const [notes, setNotes] = useState([]);
@@ -13,9 +14,10 @@ function HomePage() {
     const [activeNote, setActiveNote] = useState(null);
     const [isBlurred, setIsBlurred] = useState(false);
 
+
     const fetchNotes = async () => {
         try {
-            const response = await fetch('http://localhost:5000/notes');
+            const response = await fetch('http://localhost:8080/notes');
             if (!response.ok) {
                 throw new Error('Failed to fetch notes');
             }
@@ -29,11 +31,11 @@ function HomePage() {
         }
     };
 
-    const handleNoteAdded = () => {
-        fetchNotes();
+    const handleNoteAdded = async () => {
+        await fetchNotes();
     };
-    const handleNoteUpdate = () => {
-        fetchNotes();
+    const handleNoteUpdate = async () => {
+        await fetchNotes();
     };
 
     useEffect(() => {
@@ -89,9 +91,9 @@ function HomePage() {
         }
     }, [activeNote]);
 
-    const closeButtonClicked = () => {
+    const closeButtonClicked = async () => {
         setActiveNote(null)
-        handleNoteUpdate()
+        await handleNoteUpdate()
     }
 
     return (
@@ -101,18 +103,21 @@ function HomePage() {
                     <NoteCreator onNoteAdded={handleNoteAdded}/>
                     <NotesSection
                         selectedNote={activeNote}
-                        setSelectedNote={setActiveNote}
+                        setActiveNote={setActiveNote}
                         isBlurred={isBlurred}
                         setIsBlurred={setIsBlurred}
                     />
                 </div>
-                {activeNote && <NoteCardEditMode
-                    note={activeNote}
-                    className="active-note-card"
-                    closeButtonClicked={closeButtonClicked}
-                    setActiveNote={setActiveNote}
-                    handleNoteUpdate={handleNoteUpdate}
-                />}
+                {activeNote && (
+                    <ActiveNoteContext.Provider value={{ activeNote }}>
+                        <NoteCardEditMode
+                            className="active-note-card"
+                            closeButtonClicked={closeButtonClicked}
+                            setActiveNote={setActiveNote}
+                            handleNoteUpdate={handleNoteUpdate}
+                        />
+                    </ActiveNoteContext.Provider>
+                )}
             </div>
         </NotesContext.Provider>
     );

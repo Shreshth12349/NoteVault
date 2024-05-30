@@ -1,5 +1,5 @@
 import "./NoteCreator.css";
-import {useState, useRef } from "react";
+import {useState, useRef, useEffect} from "react";
 
 function NoteCreator({onNoteAdded}) {
     const titleRef = useRef(null)
@@ -15,15 +15,14 @@ function NoteCreator({onNoteAdded}) {
     }
     const createNote = async (title, body) => {
         try {
-            const response = await fetch("http://localhost:5000/notes", {
+            const response = await fetch(`http://localhost:8080/notes`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ title, body }),
+                body: JSON.stringify({title, body}),
             });
             if (response.ok) {
-                console.log("Note saved successfully!");
                 resetInputArea()
                 if (onNoteAdded) {
                     onNoteAdded();
@@ -44,7 +43,7 @@ function NoteCreator({onNoteAdded}) {
             } else if(document.activeElement === bodyRef.current && titleRef.current.value.trim() === ""){
                 titleRef.current.style.height = "";
             }
-        }, 1);
+        }, 0);
     }
 
 
@@ -67,6 +66,19 @@ function NoteCreator({onNoteAdded}) {
         await createNote()
         setFocus(false)
     }
+
+    useEffect(() => {
+        const handleKeyDown = async (event) => {
+            if (event.key === 'Escape') {
+                await checkFields();
+                setFocus(false);
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, []);
     return (
         <div>
             <form>

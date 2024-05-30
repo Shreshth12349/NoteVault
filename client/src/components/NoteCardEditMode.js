@@ -1,68 +1,46 @@
 import './NoteCardEditMode.css'
-import { useEffect, useRef, useState } from "react";
+import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import ColorSelector from "./ColorSelector";
+import ActiveNoteContext from "../Contexts/ActiveNoteContext";
 
 function NoteCardEditMode(props) {
-
-    const [title, setTitle] = useState(props.note.title)
-    const [body, setBody] = useState(props.note.body)
+    const {activeNote} = useContext(ActiveNoteContext)
+    const [title, setTitle] = useState(activeNote ? activeNote.title : "");
+    const [body, setBody] = useState(activeNote ? activeNote.body : "");
+    const [color, setColor] = useState(activeNote ? activeNote.color : "");
+    const [id, setId] = useState(activeNote ? activeNote._id : "");
     const [showColorPalette, setShowColorPalette] = useState(false)
-    const [ noteColor, setNoteColor ] = useState(props.note.color)
 
-    const updateNoteTitle = async (id, title) => {
+
+    const updateNote = useCallback(async () => {
         try {
-            console.log(`id = ${id}`)
-            const response = await fetch('http://localhost:5000/notes/title', {
+            const response = await fetch(`http://localhost:8080/notes/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id, title })
+                body: JSON.stringify({ title: title, body: body, color: color})
             });
             if (!response.ok) {
-                throw new Error('Failed to update note title');
+                throw new Error('Failed to update note');
             }
             const data = await response.json();
-
-            console.log('Note updated successfully:', data);
         } catch (error) {
-            console.error('Error creating note:', error);
+            console.error('Error updating note:', error);
         }
-    };
-    const updateNoteBody = async (id, body) => {
-        try {
-            console.log(`id = ${id}`)
-            const response = await fetch('http://localhost:5000/notes/body', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id, body })
-            });
-            if (!response.ok) {
-                throw new Error('Failed to update note body');
-            }
-            const data = await response.json();
+    }, [title, body, color, id]);
 
-            console.log('Note updated successfully:', data);
-        } catch (error) {
-            console.error('Error creating note:', error);
-        }
-    };
-    const handleTitleChange = async (e) => {
+    const handleTitleChange =  (e) => {
         const newTitle = e.target.value;
         setTitle(newTitle);
-        await updateNoteTitle(props.note.id, newTitle);
     };
 
-    const handleBodyChange = async (e) => {
+    const handleBodyChange =  (e) => {
         const newBody = e.target.value;
         setBody(newBody);
-        await updateNoteBody(props.note.id, newBody);
     };
     const closeButtonClickHandler = async () => {
-        await updateNoteTitle()
-        await updateNoteBody()
+        await updateNote()
         props.closeButtonClicked()
     }
     const activateColorPalette = () => {
@@ -73,28 +51,26 @@ function NoteCardEditMode(props) {
     }
 
     const style = {
-        background: noteColor,
+        background: color,
     }
+
     useEffect(() => {
-        const handleKeyDown = (event) => {
+        const handleKeyDown = async (event) => {
             if (event.key === 'Escape') {
-                updateNoteTitle()
-                updateNoteBody()
+                await updateNote()
                 props.setActiveNote(null)
                 props.handleNoteUpdate()
             }
         };
-
         document.addEventListener('keydown', handleKeyDown);
-
-        // Remove event listener when component unmounts
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, []);
+    }, [updateNote]);
+
 
     return (
-        <div className='active-note' id={props.note.id} style={style}>
+        <div className='active-note' id={id} style={style}>
             <textarea
                 placeholder={"Title"}
                 className="active-note-title"
@@ -109,14 +85,13 @@ function NoteCardEditMode(props) {
                 onChange={(e) => handleBodyChange(e)}
                 name="active-note-body"
             />
-            <div className="close-edit-mode-button" onMouseEnter={closeButtonClickHandler}>Close</div>
+            <div className="close-edit-mode-button" onClick={closeButtonClickHandler}>Close</div>
             <ColorSelector
                 showColorPalette={showColorPalette}
                 activateColorPalette={activateColorPalette}
                 deactivateColorPalette={deactivateColorPalette}
-                setNoteColor={setNoteColor}
-                noteId = {props.note.id}
-                color={props.note.color}
+                setColor={setColor}
+                activeColor={color}
             />
         </div>
     );

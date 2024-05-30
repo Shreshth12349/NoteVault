@@ -1,34 +1,24 @@
 import './ColorSelector.css'
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import NoteDataContext from "../Contexts/NoteDataContext";
+import ActiveNoteContext from "../Contexts/ActiveNoteContext";
+
+
 function ColorSelector (props) {
-    const [ noteColor, setNoteColor ] = useState(props.color)
-    const noteId = props.noteId;
+    const activeNote = useContext(ActiveNoteContext)
+    const [ Color ] = useState(activeNote ? activeNote.color : "")
+    const noteId = useState(activeNote ? activeNote._id : "")
     const style = {
-        background: noteColor
+        background: Color
     }
     const handleClick = () => {
         props.showColorPalette ? props.deactivateColorPalette() : props.activateColorPalette()
     }
     const setColor = async (color) => {
-        try {
-            props.setNoteColor(color)
-            setNoteColor(color)
-            props.deactivateColorPalette()
-            const response = await fetch('http://localhost:5000/notes/color',{
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ id:noteId, color })
-            });
-            if (!response.ok) {
-                throw new Error('Failed to update note');
-            }
-        } catch (error) {
-            console.error('Error setting color of note:', error);
-        }
+        props.setColor(color)
     }
+
+
     return (
         <div className="color-selector">
             {!props.showColorPalette && <div className="color-button" onClick={handleClick} style={style}/>}
