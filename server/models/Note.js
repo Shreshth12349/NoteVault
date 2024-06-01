@@ -16,10 +16,9 @@ const noteSchema = new Schema({
         required: false,
         default: "#F9E897"
     },
-    user: {
+    user_id: {
         type: String,
-        required: false,
-        default: "shreshth"
+        required: true,
     }
 });
 

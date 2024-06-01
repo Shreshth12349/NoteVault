@@ -1,5 +1,5 @@
 import AppLogo from "../components/AppLogo";
-import AuthenticationNavbar from "../components/AuthenticationNavbar";
+import LandingPageNavbar from "../components/LandingPageNavbar";
 import LoginForm from "../components/LoginForm";
 
 function LoginPage() {
@@ -7,7 +7,7 @@ function LoginPage() {
         <div>
             <div>
                 <AppLogo/>
-                <AuthenticationNavbar/>
+                <LandingPageNavbar/>
                 <LoginForm/>
             </div>
         </div>

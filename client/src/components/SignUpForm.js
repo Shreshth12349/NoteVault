@@ -1,16 +1,19 @@
 import './SignUpForm.css'
 import {useState} from "react";
+import {useSignup} from "../hooks/useSignup";
 function SignUpForm(props) {
-
-    const handleSubmit =  (e) => {
-        e.preventDefault()
-        console.log(email, password)
-    }
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const {signup, error, isLoading} = useSignup()
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        console.log(email, password)
+        await signup(email, password)
+        console.log(error)
+    }
 
     return (
         <div className='sign-up'>
@@ -18,10 +21,10 @@ function SignUpForm(props) {
                 <div className='form-heading'>Sign Up</div>
                 <div className='form'>
                     <form onSubmit={handleSubmit}>
-                        <label form="username">Username</label>
+                        <label form="Email">Email</label>
                         <input
-                            type="text"
-                            name="username"
+                            type="email"
+                            name="email"
                             value={email}
                             onChange={(e)=> setEmail(e.target.value)}
                         />
@@ -39,7 +42,9 @@ function SignUpForm(props) {
                             value={confirmPassword}
                             onChange={(e)=> setConfirmPassword(e.target.value)}
                         />
-                        <button type="submit">Sign up</button>
+                        <button type="submit" disabled={isLoading}>Sign up</button>
+                        {error &&
+                            <div className="error">*{error}*</div>}
                     </form>
                 </div>
             </div>

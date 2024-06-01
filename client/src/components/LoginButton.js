@@ -1,12 +1,12 @@
 import {Link} from "react-router-dom";
 function LoginButton(){
     const styles = {
-        height: '2rem',
+        height: '2.5rem',
         width: '5rem',
-        fontSize: '1rem',
+        fontSize: '1.2rem',
         marginRight: '10px',
         border: '1px solid black',
-        borderRadius: '1rem',
+        borderRadius: '1.25rem',
         textDecoration: 'none',
         color: 'black',
         justifyContent: 'center',
@@ -16,7 +16,7 @@ function LoginButton(){
         background: '#429EA6'
     }
     return (
-        <Link style={styles} to={'/login'}>Login</Link>
+        <Link style={styles} to={'/login'}>login</Link>
     );
     ;
 }

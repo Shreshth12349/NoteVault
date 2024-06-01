@@ -1,12 +1,11 @@
 import {Link} from "react-router-dom";
-
+import './Navbar.css'
+import LogoutButton from "./LogoutButton";
 function Navbar(){
     return (
-        <div>
-            <Link to={}>Home</Link>
-            <Link to={}></Link>
-            <Link to={}></Link>
-            <Link to={}></Link>
+        <div className="navbar">
+            <div className="app-name">NoteVault</div>
+            <LogoutButton className="logout-button"/>
         </div>
     );
 }

@@ -1,7 +1,10 @@
 const express = require('express');
 const noteController = require('../controllers/noteController')
-
+const requireAuth = require('../middleware/requireAuth')
 const router = express.Router();
+
+//middleware
+router.use(requireAuth)
 
 //get all notes
 router.get('/', noteController.getAllNotes );

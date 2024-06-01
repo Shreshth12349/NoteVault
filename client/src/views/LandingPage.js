@@ -1,10 +1,10 @@
 import './LandingPage.css'
-import AuthenticationNavbar from "../components/AuthenticationNavbar";
+import LandingPageNavbar from "../components/LandingPageNavbar";
 import AppLogo from "../components/AppLogo";
 function LandingPage(){
     return(
         <div>
-            <AuthenticationNavbar/>
+            <LandingPageNavbar/>
             <AppLogo/>
         </div>
     );

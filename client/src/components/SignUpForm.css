@@ -42,4 +42,12 @@
     margin-top: 1rem;
     font-weight: bold;
 }
+.error {
+    position: absolute;
+    border-radius: 10px;
+    color: red;
+    align-self: center;
+    bottom: 1rem;
+    margin: 1rem 1rem 0 1rem;
+}
 

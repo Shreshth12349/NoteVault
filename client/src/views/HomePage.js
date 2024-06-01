@@ -6,107 +6,87 @@ import NotesContext from "../Contexts/NotesContext";
 import NoteCardEditMode from "../components/NoteCardEditMode";
 import Sidebar from "../components/Sidebar";
 import ActiveNoteContext from "../Contexts/ActiveNoteContext";
+import Navbar from "../components/Navbar";
+import {useAuthContext} from "../hooks/useAuthContext";
 
 function HomePage() {
     const [notes, setNotes] = useState([]);
+    const [loadingAuth, setLoadingAuth] = useState(true); // New state to track authentication loading
     const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loadingNotes, setLoadingNotes] = useState(true); // New state to track notes loading
     const [activeNote, setActiveNote] = useState(null);
     const [isBlurred, setIsBlurred] = useState(false);
-
+    const { authState, loading } = useAuthContext();
+    const { user } = authState;
 
     const fetchNotes = async () => {
-        try {
-            const response = await fetch('http://localhost:8080/notes');
-            if (!response.ok) {
-                throw new Error('Failed to fetch notes');
+        if (user && user.token) {
+            try {
+                const response = await fetch('http://localhost:8080/notes', {
+                    headers: {
+                        'Authorization': `Bearer ${user.token}`
+                    }
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch notes');
+                }
+                const data = await response.json();
+                setNotes(data.notes);
+                setLoadingNotes(false);
+            } catch (error) {
+                console.error('Error fetching notes:', error);
+                setError(error);
+                setLoadingNotes(false);
             }
-            const data = await response.json();
-            setNotes(data.notes);
-            setLoading(false);
-        } catch (error) {
-            console.error('Error fetching notes:', error);
-            setError(error);
-            setLoading(false);
         }
     };
 
     const handleNoteAdded = async () => {
         await fetchNotes();
     };
+
     const handleNoteUpdate = async () => {
         await fetchNotes();
     };
 
     useEffect(() => {
-        setIsBlurred(activeNote !== null);
-        const handleClickOutside = (event) => {
-            const activeNoteCard = document.querySelector('.active-note-card');
-            // Check if the clicked element is not the active note or a descendant of the active note
-            if (
-                activeNote &&
-                activeNoteCard &&
-                // activeNoteCard.contains(event.target) === false &&
-                !event.target.closest('.active-note-card')
-            ) {
-                setActiveNote(null);
-                console.log('background clicked');
-            }
-        };
-        if (activeNote) {
-            document.addEventListener('click', handleClickOutside);
-
-            return () => {
-                document.removeEventListener('click', handleClickOutside);
-            };
+        if(!loading && user, user.token) {
+            fetchNotes();
         }
-    }, [activeNote]);
+    }, [user, loading]);
 
     useEffect(() => {
-        fetchNotes();
-    }, []);
-
-
-
-    useEffect(() => {
-        setIsBlurred(activeNote !== null);
-        const handleClickOutside = (event) => {
-            const activeNoteCard = document.querySelector('.active-note-card');
-            if (
-                activeNote &&
-                activeNoteCard &&
-                !event.target.closest('.active-note-card') &&
-                !event.target.closest('.note-card-edit-mode')
-            ) {
-                setActiveNote(null);
-                console.log('background clicked');
-            }
-        };
-        if (activeNote) {
-            document.addEventListener('click', handleClickOutside);
-
-            return () => {
-                document.removeEventListener('click', handleClickOutside);
-            };
+        const { user } = authState;
+        if (user) {
+            setLoadingAuth(false); // Set loadingAuth to false when user is available
         }
-    }, [activeNote]);
+    }, [authState]); // Watch for changes in authState
 
     const closeButtonClicked = async () => {
-        setActiveNote(null)
-        await handleNoteUpdate()
+        setActiveNote(null);
+        await handleNoteUpdate();
+    };
+
+    if (loadingAuth) {
+        return <div>Loading authentication...</div>;
     }
 
     return (
         <NotesContext.Provider value={notes}>
             <div className='home'>
+                <Navbar/>
                 <div className={`home ${isBlurred ? 'blurred' : ''}`}>
                     <NoteCreator onNoteAdded={handleNoteAdded}/>
-                    <NotesSection
-                        selectedNote={activeNote}
-                        setActiveNote={setActiveNote}
-                        isBlurred={isBlurred}
-                        setIsBlurred={setIsBlurred}
-                    />
+                    {loadingNotes ? (
+                        <div>Loading notes...</div>
+                    ) : (
+                        <NotesSection
+                            selectedNote={activeNote}
+                            setActiveNote={setActiveNote}
+                            isBlurred={isBlurred}
+                            setIsBlurred={setIsBlurred}
+                        />
+                    )}
                 </div>
                 {activeNote && (
                     <ActiveNoteContext.Provider value={{ activeNote }}>
@@ -123,4 +103,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default HomePage

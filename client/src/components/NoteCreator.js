@@ -1,5 +1,6 @@
 import "./NoteCreator.css";
 import {useState, useRef, useEffect} from "react";
+import {useAuthContext} from "../hooks/useAuthContext";
 
 function NoteCreator({onNoteAdded}) {
     const titleRef = useRef(null)
@@ -13,11 +14,19 @@ function NoteCreator({onNoteAdded}) {
         titleRef.current.value = ""
         bodyRef.current.value = ""
     }
+    const {authState} = useAuthContext()
+    const {user} = authState
     const createNote = async (title, body) => {
+        if(!user) {
+            console.log(user)
+            console.log("failed to update user")
+            return
+        }
         try {
             const response = await fetch(`http://localhost:8080/notes`, {
                 method: "POST",
                 headers: {
+                    "Authorization": `Bearer ${user.token}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({title, body}),

@@ -1,11 +1,11 @@
-import AuthenticationNavbar from "../components/AuthenticationNavbar";
+import LandingPageNavbar from "../components/LandingPageNavbar";
 import SignUpForm from "../components/SignUpForm";
 import './SignUpPage.css'
 import AppLogo from "../components/AppLogo";
 function SignUpPage(){
     return(
         <div>
-            <AuthenticationNavbar/>
+            <LandingPageNavbar/>
             <SignUpForm class='sign-up-form'/>
             <AppLogo/>
         </div>

@@ -2,6 +2,7 @@ import './NoteCardEditMode.css'
 import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import ColorSelector from "./ColorSelector";
 import ActiveNoteContext from "../Contexts/ActiveNoteContext";
+import {useAuthContext} from "../hooks/useAuthContext";
 
 function NoteCardEditMode(props) {
     const {activeNote} = useContext(ActiveNoteContext)
@@ -10,13 +11,18 @@ function NoteCardEditMode(props) {
     const [color, setColor] = useState(activeNote ? activeNote.color : "");
     const [id, setId] = useState(activeNote ? activeNote._id : "");
     const [showColorPalette, setShowColorPalette] = useState(false)
-
-
+    const {authState} = useAuthContext()
+    const {user} = authState
     const updateNote = useCallback(async () => {
+        if(!user) {
+            console.log("failed to update user")
+            return
+        }
         try {
             const response = await fetch(`http://localhost:8080/notes/${id}`, {
                 method: 'PUT',
                 headers: {
+                    "Authorization": `Bearer ${user.token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ title: title, body: body, color: color})

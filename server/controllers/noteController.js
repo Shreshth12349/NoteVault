@@ -2,8 +2,9 @@ const Note = require("../models/Note");
 
 const noteController = {
     getAllNotes: async (req, res) => {
+        const user_id = req.user._id
         try {
-            const allNotes = await Note.find({})
+            const allNotes = await Note.find({user_id: user_id})
             return res.status(201).json({notes: allNotes});
         } catch (error) {
             console.log(error)
@@ -27,7 +28,8 @@ const noteController = {
 
     createNote: async (req, res) => {
         try {
-            const newNote = await new Note({...req.body});
+            const user_id = req.user._id
+            const newNote = await new Note({...req.body, user_id});
             await newNote.save()
             return res.status(200).json({msg:"new note successfully created"})
         } catch (error) {

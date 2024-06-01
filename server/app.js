@@ -25,6 +25,7 @@ app.use('/users', userRoutes)
 
 
 //Database connection
+
 const username = process.env.MDBUSERNAME
 const password = encodeURIComponent(process.env.PASSWORD)
 mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.rdkhsn5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
