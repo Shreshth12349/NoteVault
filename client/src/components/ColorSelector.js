@@ -18,7 +18,6 @@ function ColorSelector (props) {
         props.setColor(color)
     }
 
-
     return (
         <div className="color-selector">
             {!props.showColorPalette && <div className="color-button" onClick={handleClick} style={style}/>}

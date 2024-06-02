@@ -18,8 +18,6 @@ function NoteCreator({onNoteAdded}) {
     const {user} = authState
     const createNote = async (title, body) => {
         if(!user) {
-            console.log(user)
-            console.log("failed to update user")
             return
         }
         try {

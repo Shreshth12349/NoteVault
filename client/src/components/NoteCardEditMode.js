@@ -15,7 +15,6 @@ function NoteCardEditMode(props) {
     const {user} = authState
     const updateNote = useCallback(async () => {
         if(!user) {
-            console.log("failed to update user")
             return
         }
         try {

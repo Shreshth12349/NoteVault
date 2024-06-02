@@ -8,7 +8,6 @@ function LoginForm(props) {
     const {login, error, isLoading} = useLogin()
     const handleSubmit =  async (e) => {
         e.preventDefault()
-        console.log(email, password)
         const success = await login(email, password)
         if(success) {
             navigate('/home')

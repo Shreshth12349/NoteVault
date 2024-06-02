@@ -34,7 +34,6 @@ function HomePage() {
                 setNotes(data.notes);
                 setLoadingNotes(false);
             } catch (error) {
-                console.error('Error fetching notes:', error);
                 setError(error);
                 setLoadingNotes(false);
             }

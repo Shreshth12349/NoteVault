@@ -10,9 +10,7 @@ function SignUpForm(props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(email, password)
         await signup(email, password)
-        console.log(error)
     }
 
     return (
