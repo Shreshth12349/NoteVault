@@ -7,7 +7,6 @@ const noteController = {
             const allNotes = await Note.find({user_id: user_id})
             return res.status(201).json({notes: allNotes});
         } catch (error) {
-            console.log(error)
             return res.status(404).json({msg: "unable to retrieve the notes"})
         }
 
@@ -33,7 +32,6 @@ const noteController = {
             await newNote.save()
             return res.status(200).json({msg:"new note successfully created"})
         } catch (error) {
-            console.log(error)
             return res.status(400).json({msg:error})
         }
     },
