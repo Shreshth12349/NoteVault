@@ -17,7 +17,7 @@ const port = process.env.PORT || 8080;
 app.use(morgan('dev'));
 app.use(cors(
     {
-        origin: ["https://deploy-mern-1whq.vercel.app"],
+        origin: ["https://note-vault-frontend.vercel.app"],
         methods: ["GET", "POST", "PUT", "DELETE"],
         credential: true
     }
