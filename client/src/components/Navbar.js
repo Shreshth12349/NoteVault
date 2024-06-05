@@ -4,7 +4,7 @@ import LogoutButton from "./LogoutButton";
 function Navbar(){
     return (
         <div className="navbar">
-            <div className="app-name">NoteVault</div>
+            <div className="index-name">NoteVault</div>
             <LogoutButton className="logout-button"/>
         </div>
     );
