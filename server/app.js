@@ -21,6 +21,9 @@ app.use(cors({
 }));
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('Note Vault API');
+});
 // Routes
 app.use('/notes', notesRoutes);
 app.use('/users', userRoutes);
