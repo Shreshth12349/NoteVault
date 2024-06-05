@@ -18,7 +18,7 @@ function NoteCardEditMode(props) {
             return
         }
         try {
-            const response = await fetch(`http://localhost:8080/notes/${id}`, {
+            const response = await fetch(`https://note-vault-api-eight.vercel.app/notes/${id}`, {
                 method: 'PUT',
                 headers: {
                     "Authorization": `Bearer ${user.token}`,
