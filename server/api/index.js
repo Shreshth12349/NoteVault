@@ -8,25 +8,25 @@ const userRoutes = require('../routes/users');
 
 dotenv.config();
 
-const index = express();
+const app = express();
 const port = process.env.PORT || 8080;
 
 // Middleware
-index.use(morgan('dev'));
-index.use(cors({
+app.use(morgan('dev'));
+app.use(cors({
     origin: 'https://note-vault-frontend.vercel.app', // Frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     // credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
-index.use(express.json());
+app.use(express.json());
 
-index.get('/', (req, res) => {
+app.get('/', (req, res) => {
     res.send('Note Vault API');
 });
 // Routes
-index.use('/notes', notesRoutes);
-index.use('/users', userRoutes);
+app.use('/notes', notesRoutes);
+app.use('/users', userRoutes);
 
 // Database connection
 const username = process.env.MDBUSERNAME;
@@ -39,6 +39,6 @@ mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.rdkhsn5.mongodb
         console.error("Database connection error:", err);
     });
 
-index.listen(port, () => {
+app.listen(port, () => {
     console.log(`Server listening on port ${port}...`);
 });

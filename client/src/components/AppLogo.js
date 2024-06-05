@@ -12,7 +12,7 @@ function AppLogo(){
     }
     return(
         <div>
-            <img src={app_logo} className='index-logo' style={styles}/>
+            <img src={app_logo} className='app-logo' style={styles}/>
         </div>
     );
 }

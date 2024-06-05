@@ -8,7 +8,7 @@ function LandingPageNavbar(){
     return (
         <div>
             <div className="nav">
-                <div className="index-name">NoteVault</div>
+                <div className="app-name">NoteVault</div>
                 <div className="buttons">
                     <LoginButton className='login'/>
                     <SignUpButton/>
