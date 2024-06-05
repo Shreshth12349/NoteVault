@@ -19,7 +19,8 @@ app.use(cors(
     {
         origin: ["https://note-vault-frontend.vercel.app"],
         methods: ["GET", "POST", "PUT", "DELETE"],
-        credential: true
+        credential: true,
+        allowedHeaders: ['Content-Type', 'Authorization']
     }
 ));
 app.use(express.json());
