@@ -15,7 +15,13 @@ const port = process.env.PORT || 8080;
 
 // Middleware
 app.use(morgan('dev'));
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors(
+    {
+        origin: ["https://deploy-mern-1whq.vercel.app"],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credential: true
+    }
+));
 app.use(express.json());
 
 
