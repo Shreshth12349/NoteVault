@@ -3,8 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const notesRoutes = require('../routes/notes');
-const userRoutes = require('../routes/users');
+const notesRoutes = require('./routes/notes');
+const userRoutes = require('./routes/users');
 
 dotenv.config();
 
@@ -48,4 +48,3 @@ app.listen(port, () => {
 });
 
 
-module.exports = app

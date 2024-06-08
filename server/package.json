@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "vercel-build": "echo hello"
   },
   "dependencies": {
