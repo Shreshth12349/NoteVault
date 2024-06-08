@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const notesRoutes = require('./routes/notes');
 const userRoutes = require('./routes/users');
 
+dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 8080;
