@@ -15,7 +15,7 @@ const port = process.env.PORT || 8080;
 app.use(morgan('dev'));
 
 app.use(cors({
-    origin: 'note-vault-frontend-mgog2xy4v-shreshth12349s-projects.vercel.app', // Frontend URL
+    origin: 'https://note-vault-frontend.vercel.app/', // Frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
