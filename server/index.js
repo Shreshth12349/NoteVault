@@ -15,7 +15,7 @@ const port = process.env.PORT || 8080;
 app.use(morgan('dev'));
 
 app.use(cors({
-    origin: 'https://note-vault-frontend.vercel.app', // Frontend URL
+    origin: 'note-vault-frontend-mgog2xy4v-shreshth12349s-projects.vercel.app', // Frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
@@ -34,6 +34,7 @@ app.use('/users', userRoutes);
 // Database connection
 const username = process.env.MDBUSERNAME;
 const password = encodeURIComponent(process.env.PASSWORD);
+
 mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.rdkhsn5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`)
     .then(() => {
         console.log("Database connected");
@@ -41,6 +42,10 @@ mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.rdkhsn5.mongodb
     .catch(err => {
         console.error("Database connection error:", err);
     });
+
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}...`);
+});
 
 
 module.exports = app
