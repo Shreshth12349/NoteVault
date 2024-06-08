@@ -21,7 +21,7 @@ function NoteCreator({onNoteAdded}) {
             return
         }
         try {
-            const response = await fetch(`https://note-vault-api-eight.vercel.app/notes`, {
+            const response = await fetch(`https://note-vault-gocnlit8j-shreshth12349s-projects.vercel.app/notes`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${user.token}`,

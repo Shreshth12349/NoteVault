@@ -11,7 +11,7 @@ export const useLogin = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('https://note-vault-api-eight.vercel.app/users/login', {
+        const response = await fetch('https://note-vault-gocnlit8j-shreshth12349s-projects.vercel.app/users/login', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})
