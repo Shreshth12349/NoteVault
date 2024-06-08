@@ -3,8 +3,8 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const notesRoutes = require('../routes/notes');
-const userRoutes = require('../routes/users');
+const notesRoutes = require('./routes/notes');
+const userRoutes = require('./routes/users');
 
 dotenv.config();
 
@@ -13,17 +13,20 @@ const port = process.env.PORT || 8080;
 
 // Middleware
 app.use(morgan('dev'));
+
 app.use(cors({
     origin: 'https://note-vault-frontend.vercel.app', // Frontend URL
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    // credentials: true,
+    credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 app.use(express.json());
 
 app.get('/', (req, res) => {
     res.send('Note Vault API');
 });
+
 // Routes
 app.use('/notes', notesRoutes);
 app.use('/users', userRoutes);
@@ -42,3 +45,5 @@ mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.rdkhsn5.mongodb
 app.listen(port, () => {
     console.log(`Server listening on port ${port}...`);
 });
+
+module.exports = app
