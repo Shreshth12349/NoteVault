@@ -23,8 +23,8 @@ app.use(cors({
 
 app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('Note Vault API');
+app.get('/status', (req, res) => {
+    return res.status(200).send('Note Vault API');
 });
 
 // Routes
