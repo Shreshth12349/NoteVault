@@ -42,8 +42,5 @@ mongoose.connect(`mongodb+srv://${username}:${password}@cluster0.rdkhsn5.mongodb
         console.error("Database connection error:", err);
     });
 
-app.listen(port, () => {
-    console.log(`Server listening on port ${port}...`);
-});
 
 module.exports = app
