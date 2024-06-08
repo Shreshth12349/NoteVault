@@ -8,6 +8,7 @@ import Sidebar from "../components/Sidebar";
 import ActiveNoteContext from "../Contexts/ActiveNoteContext";
 import Navbar from "../components/Navbar";
 import {useAuthContext} from "../hooks/useAuthContext";
+import baseUrl from "../config";
 
 function HomePage() {
     const [notes, setNotes] = useState([]);
@@ -22,7 +23,7 @@ function HomePage() {
     const fetchNotes = async () => {
         if (user && user.token) {
             try {
-                const response = await fetch('http://localhost:8080/notes', {
+                const response = await fetch(`${baseUrl}/notes`, {
                     headers: {
                         'Authorization': `Bearer ${user.token}`
                     }

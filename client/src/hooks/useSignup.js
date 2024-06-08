@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useAuthContext} from "./useAuthContext";
+import baseUrl from "../config";
 
 export const useSignup = () => {
     const [error, setError] = useState(null)
@@ -11,7 +12,7 @@ export const useSignup = () => {
         setIsLoading(true)
         setError(null)
 
-        const response = await fetch('https://note-vault-gocnlit8j-shreshth12349s-projects.vercel.app/users/signup', {
+        const response = await fetch(`${baseUrl}/users/signup`, {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email, password})

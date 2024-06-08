@@ -3,6 +3,7 @@ import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import ColorSelector from "./ColorSelector";
 import ActiveNoteContext from "../Contexts/ActiveNoteContext";
 import {useAuthContext} from "../hooks/useAuthContext";
+import baseUrl from "../config";
 
 function NoteCardEditMode(props) {
     const {activeNote} = useContext(ActiveNoteContext)
@@ -18,7 +19,7 @@ function NoteCardEditMode(props) {
             return
         }
         try {
-            const response = await fetch(`https://note-vault-gocnlit8j-shreshth12349s-projects.vercel.app//notes/${id}`, {
+            const response = await fetch(`${baseUrl}/notes/${id}`, {
                 method: 'PUT',
                 headers: {
                     "Authorization": `Bearer ${user.token}`,

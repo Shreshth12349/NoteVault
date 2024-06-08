@@ -1,6 +1,7 @@
 import "./NoteCreator.css";
 import {useState, useRef, useEffect} from "react";
 import {useAuthContext} from "../hooks/useAuthContext";
+import baseUrl from "../config";
 
 function NoteCreator({onNoteAdded}) {
     const titleRef = useRef(null)
@@ -21,7 +22,7 @@ function NoteCreator({onNoteAdded}) {
             return
         }
         try {
-            const response = await fetch(`https://note-vault-gocnlit8j-shreshth12349s-projects.vercel.app/notes`, {
+            const response = await fetch(`${baseUrl}/notes`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${user.token}`,
