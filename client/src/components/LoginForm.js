@@ -6,8 +6,15 @@ import {useNavigate} from "react-router-dom";
 function LoginForm(props) {
     const navigate = useNavigate()
     const {login, error, isLoading} = useLogin()
+    const [error2, setError2] = useState(null)
+
     const handleSubmit =  async (e) => {
         e.preventDefault()
+        if(email.trim() === "" || password.trim() === ""){
+            setError2("All fields must be filled")
+            return
+        }
+        setError2(error)
         const success = await login(email, password)
         if(success) {
             navigate('/home')
@@ -28,18 +35,22 @@ function LoginForm(props) {
                             type="email"
                             name="email"
                             value={email}
-                            onChange={(e)=> setEmail(e.target.value)}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                         <label for="password">Password</label>
                         <input
                             type="password"
                             name="password"
                             value={password}
-                            onChange={(e)=> setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
-                        <button type="submit" disabled={isLoading}>Log in</button>
-                        {error &&
-                        <div className="error">*{error}*</div>}
+                        <button type="submit" disabled={isLoading}>Login</button>
+                        <div className="errors">
+                            {!error2 && error &&
+                                <div className="error">{error}</div>}
+                            {error2 &&
+                                <div className="error">{error2}</div>}
+                        </div>
                     </form>
                 </div>
             </div>

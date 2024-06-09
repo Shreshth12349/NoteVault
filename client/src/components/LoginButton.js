@@ -13,10 +13,11 @@ function LoginButton(){
         alignItems: 'center',
         display: 'flex',
         fontWeight: 'bold',
-        background: '#429EA6'
+        background: '#2ea646',
+        boxShadow: '0px 0px 7px 0px'
     }
     return (
-        <Link style={styles} to={'/login'}>login</Link>
+        <Link style={styles} to={'/login'}>Login</Link>
     );
     ;
 }

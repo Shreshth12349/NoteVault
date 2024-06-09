@@ -12,7 +12,8 @@ function LogoutButton() {
         padding: "7px 10px",
         borderRadius: '1.25rem',
         marginRight: '10px',
-        fontWeight: 'bolder'
+        fontWeight: 'bolder',
+        boxShadow: '1px 1px 3px 1px'
     }
 
     const {logout} = useLogout()

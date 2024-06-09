@@ -8,8 +8,9 @@ function AppLogo(){
         position: 'absolute',
         justifyContent: 'center',
         left: '3em',
-        bottom: '3em'
-    }
+        bottom: '3em',
+        boxShadow: '5px 3px 10px 10px'
+}
     return(
         <div>
             <img src={app_logo} className='app-logo' style={styles}/>

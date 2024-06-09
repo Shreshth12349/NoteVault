@@ -1,5 +1,5 @@
 import './SignUpForm.css'
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useSignup} from "../hooks/useSignup";
 function SignUpForm(props) {
 
@@ -7,11 +7,18 @@ function SignUpForm(props) {
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
     const {signup, error, isLoading} = useSignup()
+    const [error2, setError2] = useState(null)
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        if(password!==confirmPassword) {
+            setError2("Passwords don't match")
+            return
+        }
+        setError2(null)
         await signup(email, password)
     }
+
 
     return (
         <div className='sign-up'>
@@ -41,8 +48,12 @@ function SignUpForm(props) {
                             onChange={(e)=> setConfirmPassword(e.target.value)}
                         />
                         <button type="submit" disabled={isLoading}>Sign up</button>
-                        {error &&
-                            <div className="error">*{error}*</div>}
+                        <div className="errors">
+                            {!error2 && error &&
+                                <div className="error">{error}</div>}
+                            {error2 &&
+                                <div className="error">{error2}</div> }
+                        </div>
                     </form>
                 </div>
             </div>

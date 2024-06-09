@@ -14,10 +14,12 @@ function SignUpButton(){
         textDecoration: 'none',
         color: 'black',
         fontWeight: 'bold',
-        background: '#429EA6'
+        background: '#6b8de3',
+        padding: '0 4px',
+        boxShadow: '0px 0px 7px 0px'
     }
     return (
-        <Link to={"/signup"} style={styles}>sign up</Link>
+        <Link to={"/signup"} style={styles}>Sign up</Link>
     );
 }
 
