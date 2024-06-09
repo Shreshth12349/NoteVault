@@ -10,7 +10,7 @@ import Navbar from "../components/Navbar";
 import {useAuthContext} from "../hooks/useAuthContext";
 import baseUrl from "../config";
 
-function HomePage() {
+function HomePage(props) {
     const [notes, setNotes] = useState([]);
     const [loadingAuth, setLoadingAuth] = useState(true); // New state to track authentication loading
     const [error, setError] = useState(null);
@@ -21,6 +21,7 @@ function HomePage() {
     const { user } = authState;
 
     const fetchNotes = async () => {
+        console.log("user: ", props.token)
         if (user && user.token) {
             try {
                 const response = await fetch(`${baseUrl}/notes`, {
@@ -50,50 +51,54 @@ function HomePage() {
     };
 
     useEffect(() => {
-        if(!loading && user, user.token) {
-            fetchNotes();
+        const fetchNotesWithRetry = async (retryCount = 5) => {
+            if (retryCount === 0) return;
+            try {
+                await fetchNotes();
+            } catch (error) {
+                setTimeout(() => fetchNotesWithRetry(retryCount - 1), 1000);
+            }
+        };
+
+        if (!loading && user) {
+            fetchNotesWithRetry();
         }
-    }, [user, loading]);
+    }, [user, loading, user.token]);
 
     useEffect(() => {
         const { user } = authState;
         if (user) {
             setLoadingAuth(false); // Set loadingAuth to false when user is available
         }
-    }, [authState]); // Watch for changes in authState
+    }, [authState, user, loading]); // Watch for changes in authState
 
-    const closeButtonClicked = async () => {
-        setActiveNote(null);
-        await handleNoteUpdate();
-    };
 
     if (loadingAuth) {
         return <div>Loading authentication...</div>;
     }
 
     return (
-        <NotesContext.Provider value={notes}>
+        <NotesContext.Provider value={{notes, fetchNotes}}>
             <div className='home'>
                 <Navbar/>
-                <div className={`home ${isBlurred ? 'blurred' : ''}`}>
+                <div className={`home ${activeNote ? 'blurred' : ''}`}>
                     <NoteCreator onNoteAdded={handleNoteAdded}/>
                     {loadingNotes ? (
-                        <div>Loading notes...</div>
+                        <div style={{color: 'white'}}>Loading notes...</div>
                     ) : (
                         <NotesSection
                             selectedNote={activeNote}
                             setActiveNote={setActiveNote}
                             isBlurred={isBlurred}
+                            notes={notes}
                             setIsBlurred={setIsBlurred}
                         />
                     )}
                 </div>
                 {activeNote && (
-                    <ActiveNoteContext.Provider value={{ activeNote }}>
+                    <ActiveNoteContext.Provider value={{ activeNote, setActiveNote }}>
                         <NoteCardEditMode
                             className="active-note-card"
-                            closeButtonClicked={closeButtonClicked}
-                            setActiveNote={setActiveNote}
                             handleNoteUpdate={handleNoteUpdate}
                         />
                     </ActiveNoteContext.Provider>

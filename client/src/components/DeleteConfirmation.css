@@ -1,0 +1,48 @@
+.confirmation-box {
+    position: absolute;
+    display: flex;
+    flex-flow: column;
+    background: grey;
+    padding: 10px 20px;
+    width: fit-content;
+    border-radius: 10px;
+    gap: 10px;
+    box-shadow: 1px 1px 5px 1px;
+}
+.confirmation-message {
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+.confirmation-buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row;
+    gap: 10px;
+}
+.confirmation-button {
+    width: 1.3rem;
+    display: flex;
+    font-size: 0.5em;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: black;
+    border-radius: 10px;
+    padding: 2px 10px;
+    background: darkslategrey;
+}
+.confirmation-button:hover {
+}
+.yes {
+    background: #a83b3b;
+    font-weight: bold;
+}
+.yes:hover {
+    transform: scale(1.1);
+}
+.no {
+    color: white;
+}
+.no:hover {
+    transform: scale(1.1);
+}

@@ -18,10 +18,12 @@ router.post('/', noteController.createNote );
 //update note
 router.put('/:id', noteController.updateNote )
 
+//delete all
+router.delete('/all', noteController.deleteAllNotes)
+
 //delete by id
 router.delete('/:id', noteController.deleteNoteById)
 
-//delete all
-router.delete('/all', noteController.deleteAllNotes)
+
 
 module.exports = router;

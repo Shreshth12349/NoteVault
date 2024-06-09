@@ -1,13 +1,17 @@
 import "./NoteCreator.css";
-import {useState, useRef, useEffect} from "react";
+import {useState, useRef, useEffect, useContext} from "react";
 import {useAuthContext} from "../hooks/useAuthContext";
 import baseUrl from "../config";
+import NotesContext from "../Contexts/NotesContext";
 
-function NoteCreator({onNoteAdded}) {
+function NoteCreator() {
+
     const titleRef = useRef(null)
     const bodyRef = useRef(null)
     const [ Focus, setFocus ] = useState(false)
     const handleBodyFocus = () => { setFocus(true)}
+    const {fetchNotes} = useContext(NotesContext)
+
     const resetInputArea = () => {
         setFocus(false);
         titleRef.current.style.height = ""
@@ -17,9 +21,10 @@ function NoteCreator({onNoteAdded}) {
     }
     const {authState} = useAuthContext()
     const {user} = authState
+
     const createNote = async (title, body) => {
         if(!user) {
-            return
+            return false
         }
         try {
             const response = await fetch(`${baseUrl}/notes`, {
@@ -32,9 +37,7 @@ function NoteCreator({onNoteAdded}) {
             });
             if (response.ok) {
                 resetInputArea()
-                if (onNoteAdded) {
-                    onNoteAdded();
-                }
+                    fetchNotes()
             } else {
                 console.error("Failed to save note:", response.statusText);
             }
@@ -71,7 +74,6 @@ function NoteCreator({onNoteAdded}) {
     };
 
     const closeButtonClickHandler = async () => {
-        await createNote()
         setFocus(false)
     }
 

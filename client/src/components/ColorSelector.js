@@ -16,6 +16,7 @@ function ColorSelector (props) {
     }
     const setColor = async (color) => {
         props.setColor(color)
+        props.deactivateColorPalette()
     }
 
     return (

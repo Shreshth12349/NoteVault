@@ -1,0 +1,20 @@
+.delete-container {
+    width: 0.8em;
+    height: 0.8em;
+    position: absolute;
+    left: 0.5em;
+    bottom: 0.5em;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 25%;
+}
+.delete-container:hover {
+    cursor: pointer;
+    filter: brightness(95%);
+}
+.delete-icon {
+    height: inherit;
+    width: inherit;
+}

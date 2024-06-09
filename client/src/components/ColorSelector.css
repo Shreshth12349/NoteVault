@@ -12,10 +12,7 @@
     border-radius: 1rem;
     border: 2px solid black;
 }
-.color-button:hover {
-    transform: scale(1.05);
-    transition: 0.1s;
-}
+
 .palette {
     position: fixed;
     top: 0.1rem;

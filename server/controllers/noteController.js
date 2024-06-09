@@ -1,4 +1,5 @@
-const Note = require("../models/Note");
+const Note = require("../models/Note")
+const User = require("../models/User")
 
 const noteController = {
     getAllNotes: async (req, res) => {
@@ -13,8 +14,9 @@ const noteController = {
     },
     getNoteById: async (req, res) => {
         const noteId = req.params.id
+        const user_id = req.user._id
         try {
-            const fetchedNote  = await Note.findById(noteId)
+            const fetchedNote  = await Note.findOne({_id: noteId, user_id: user_id})
             if (fetchedNote) {
                 return res.status(201).json({note: fetchedNote});
             } else {
@@ -37,10 +39,15 @@ const noteController = {
     },
 
     updateNote: async (req, res) => {
+        const userId = req.user._id
         const noteId = req.params.id
         const updatedFields = req.body
         try {
-            const updatedNote = await Note.findByIdAndUpdate(noteId, updatedFields, { new: true });
+            const updatedNote = await Note.findOneAndUpdate(
+                { _id: noteId, user_id: userId },
+                updatedFields,
+                { new: true }
+            );
             if (updatedNote) {
                 return res.status(200).json({msg: "note successfully updated", note: updatedNote})
             }
@@ -52,23 +59,25 @@ const noteController = {
 
     deleteNoteById: async (req, res) => {
         const noteId = req.params.id
+        const userId = req.user._id
         try {
-            const deletedNote = await Note.findByIdAndDelete(noteId)
-            if (deletedNote) {
+            const note = await Note.findOneAndDelete({ _id: noteId, user_id: userId });
+            if (note) {
                 return res.status(200).json({msg: "Note successfully deleted"})
             }
-            return res.status(404).json({msg: `failed to find the note with id ${noteId}`})
+            return res.status(404).json({msg: `failed to find the note with id ${noteId} and user_id ${userId}`})
         } catch (error) {
             return res.status(500).json({msg: "failed to delete the note"})
         }
     },
     deleteAllNotes: async (req, res) => {
+        const userId = req.user._id
         try {
-            const result = await Note.deleteMany({});
+            const result = await Note.deleteMany({user_id: req.user._id});
             if(result) {
                 return res.status(200).json({msg: "all notes successfully deleted"})
             }
-            return res.status(404).json({msg: "failed to delete the notes"})
+            return res.status(404).json({msg: "failed to delete all the notes"})
         } catch (error) {
             console.error('Error deleting documents:', error);
             return res.status(500).json({msg: "an error occurred while deleting the notes"});

@@ -28,7 +28,7 @@ function App() {
                 />
                 <Route
                     path="/home"
-                    element={user ? <HomePage/> : <Navigate to="/login"/>}
+                    element={user ? <HomePage token={user.token}/> : <Navigate to="/login"/>}
                 />
             </Routes>
         </Router>

@@ -5,7 +5,7 @@ import NotesContext from "../Contexts/NotesContext";
 import NoteDataContext from "../Contexts/NoteDataContext";
 
 function NotesSection(props) {
-    const notes = useContext(NotesContext);
+    const {notes} = useContext(NotesContext);
 
     const handleNoteCardClick = (note, event) => {
         props.setActiveNote(note);

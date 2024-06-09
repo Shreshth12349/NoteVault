@@ -23,7 +23,7 @@
     max-height: 3in;
     background: none;
     overflow: hidden;
-    margin-top: 0.5em; /* Add margin between title and body */
+    margin-top: 1.3em; /* Add margin between title and body */
     overflow-y: auto;
 }
 
@@ -61,9 +61,6 @@ body:not(.focused) {
     user-select: none;
 }
 
-
-
-
 .active-note-title:focus {
     outline: none;
 }
@@ -88,12 +85,13 @@ body:not(.focused) {
     align-self: flex-end;
     width: fit-content;
     border-radius: 5px;
-    padding: 3px;
+    padding: 4px;
     margin-top: 5px;
 }
 .close-edit-mode-button:hover {
     cursor: pointer;
     user-select: none;
+    filter: brightness(95%);
 }
 
 .active-note-body::-webkit-scrollbar {
@@ -116,3 +114,4 @@ body:not(.focused) {
     background-color: black;
     cursor: pointer;
 }
+

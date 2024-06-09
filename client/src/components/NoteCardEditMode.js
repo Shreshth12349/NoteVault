@@ -4,9 +4,11 @@ import ColorSelector from "./ColorSelector";
 import ActiveNoteContext from "../Contexts/ActiveNoteContext";
 import {useAuthContext} from "../hooks/useAuthContext";
 import baseUrl from "../config";
+import NoteDeleteButton from "./NoteDeleteButton";
+import NotesContext from "../Contexts/NotesContext";
 
 function NoteCardEditMode(props) {
-    const {activeNote} = useContext(ActiveNoteContext)
+    const { activeNote, setActiveNote } = useContext(ActiveNoteContext)
     const [title, setTitle] = useState(activeNote ? activeNote.title : "");
     const [body, setBody] = useState(activeNote ? activeNote.body : "");
     const [color, setColor] = useState(activeNote ? activeNote.color : "");
@@ -14,6 +16,10 @@ function NoteCardEditMode(props) {
     const [showColorPalette, setShowColorPalette] = useState(false)
     const {authState} = useAuthContext()
     const {user} = authState
+    const {notes, fetchNotes} = useContext(NotesContext)
+    const closeButtonStyle = {
+        background: color
+    }
     const updateNote = useCallback(async () => {
         if(!user) {
             return
@@ -47,7 +53,8 @@ function NoteCardEditMode(props) {
     };
     const closeButtonClickHandler = async () => {
         await updateNote()
-        props.closeButtonClicked()
+        fetchNotes()
+        setActiveNote(null)
     }
     const activateColorPalette = () => {
         setShowColorPalette(true)
@@ -64,8 +71,8 @@ function NoteCardEditMode(props) {
         const handleKeyDown = async (event) => {
             if (event.key === 'Escape') {
                 await updateNote()
-                props.setActiveNote(null)
-                props.handleNoteUpdate()
+                setActiveNote(null)
+                fetchNotes()
             }
         };
         document.addEventListener('keydown', handleKeyDown);
@@ -91,7 +98,7 @@ function NoteCardEditMode(props) {
                 onChange={(e) => handleBodyChange(e)}
                 name="active-note-body"
             />
-            <div className="close-edit-mode-button" onClick={closeButtonClickHandler}>Close</div>
+            <div className="close-edit-mode-button" onClick={closeButtonClickHandler} style={closeButtonStyle}>Close</div>
             <ColorSelector
                 showColorPalette={showColorPalette}
                 activateColorPalette={activateColorPalette}
@@ -99,6 +106,7 @@ function NoteCardEditMode(props) {
                 setColor={setColor}
                 activeColor={color}
             />
+            <NoteDeleteButton class="delete-button" color={color} id={id}/>
         </div>
     );
 }
