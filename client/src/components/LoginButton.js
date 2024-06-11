@@ -19,7 +19,6 @@ function LoginButton(){
     return (
         <Link style={styles} to={'/login'}>Login</Link>
     );
-    ;
 }
 
 export default LoginButton;

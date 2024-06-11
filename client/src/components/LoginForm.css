@@ -46,4 +46,13 @@
     margin-top: 1rem;
     font-weight: bold;
 }
+.password-visibility-icon {
+    height: 24px;
+}
+
+.login-password-container {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
 

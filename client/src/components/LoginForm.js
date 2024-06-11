@@ -2,7 +2,8 @@ import './LoginForm.css'
 import {useState} from "react";
 import {useLogin} from "../hooks/useLogin";
 import {useNavigate} from "react-router-dom";
-
+import eyeOpen from '../assets/eye_open.png'
+import eyeClosed from '../assets/eye_closed.png'
 function LoginForm(props) {
     const navigate = useNavigate()
     const {login, error, isLoading} = useLogin()
@@ -23,7 +24,10 @@ function LoginForm(props) {
 
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
+    const [showPassword, setShowPassword] = useState(false)
+    const passwordVisibilityHandler = () => {
+        setShowPassword(!showPassword)
+    }
     return (
         <div className='log-in'>
             <div className='log-in-container'>
@@ -37,13 +41,16 @@ function LoginForm(props) {
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
-                        <label for="password">Password</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                        <label>Password</label>
+                        <div  className="login-password-container">
+                            <input
+                                type={showPassword ? "text" : "password"}
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <img src={showPassword ? eyeOpen : eyeClosed} className="password-visibility-icon" onClick={passwordVisibilityHandler}/>
+                        </div>
                         <button type="submit" disabled={isLoading}>Login</button>
                         <div className="errors">
                             {!error2 && error &&

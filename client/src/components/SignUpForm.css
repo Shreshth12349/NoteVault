@@ -66,5 +66,10 @@
     position: relative;
     margin-top: 20px;
 }
+.signup-password-container {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
 
 
