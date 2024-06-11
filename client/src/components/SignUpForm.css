@@ -18,6 +18,7 @@
 .sign-up-container form {
     font-size: 1.2em;
     display: flex;
+    gap: 0.7rem;
     flex-direction: column;
     margin-top: 1em;
 }
@@ -31,8 +32,10 @@
     height: 1.2em;
     text-decoration: none;
     font-weight: lighter;
-    border-radius: 5px;
-    padding-left: 5px;
+    padding: 5px 0 5px 0;
+    border: none;
+    border-bottom: 1px solid black;
+    background: none;
 }
 .sign-up-container button {
     margin-top: 2em;
