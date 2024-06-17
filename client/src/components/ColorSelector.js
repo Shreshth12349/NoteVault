@@ -2,7 +2,7 @@ import './ColorSelector.css'
 import {useContext, useEffect, useState} from "react";
 import NoteDataContext from "../Contexts/NoteDataContext";
 import ActiveNoteContext from "../Contexts/ActiveNoteContext";
-
+import editIcon from '../assets/edit_icon.png'
 
 function ColorSelector (props) {
     const activeNote = useContext(ActiveNoteContext)
@@ -21,7 +21,11 @@ function ColorSelector (props) {
 
     return (
         <div className="color-selector">
-            {!props.showColorPalette && <div className="color-button" onClick={handleClick} style={style}/>}
+            {!props.showColorPalette &&
+                <div className="color-button" onClick={handleClick} style={style}>
+                    <img src={editIcon} className={"edit-icon"}/>
+                </div>
+            }
 
             {props.showColorPalette &&
                 <div className="palette">

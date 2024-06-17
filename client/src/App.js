@@ -6,6 +6,8 @@ import SignUpPage from "./views/SignUpPage";
 import HomePage from "./views/HomePage";
 import {useAuthContext} from "./hooks/useAuthContext"
 import Navbar from "./components/Navbar";
+import SharedNoteCard from "./components/SharedNoteCard";
+import SharedNoteViewPage from "./views/SharedNoteViewPage";
 
 function App() {
     const {authState} = useAuthContext()
@@ -29,6 +31,10 @@ function App() {
                 <Route
                     path="/home"
                     element={user ? <HomePage token={user.token}/> : <Navigate to="/login"/>}
+                />
+                <Route
+                    path="/share/:endpoint"
+                    element={<SharedNoteViewPage/>}
                 />
             </Routes>
         </Router>

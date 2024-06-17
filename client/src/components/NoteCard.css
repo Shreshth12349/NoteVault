@@ -1,7 +1,6 @@
 .note-container {
     display: flex;
     flex-flow: column;
-    border: 2px solid black;
     padding: 1.5em;
     border-radius: 10px;
     text-decoration: none;
@@ -14,6 +13,7 @@
 .note-container:hover {
     cursor: pointer;
     transition: 0.1s;
+    box-shadow: 1px 1px 4px 4px;
     transform: scale(1.03);
 }
 
@@ -55,6 +55,7 @@ body:not(.focused) {
     filter: blur(0.5);
 }
 .empty-placeholder {
-    color: black;
+    text-align: center;
+    color: slategrey;
     font-weight: bold;
 }

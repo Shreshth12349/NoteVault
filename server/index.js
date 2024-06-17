@@ -5,6 +5,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const notesRoutes = require('./routes/notes');
 const userRoutes = require('./routes/users');
+const shareRoutes = require('./routes/shares')
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.get('/status', (req, res) => {
 // Routes
 app.use('/notes', notesRoutes);
 app.use('/users', userRoutes);
+app.use('/share', shareRoutes)
 
 // Database connection
 const username = process.env.MDBUSERNAME;

@@ -1,8 +1,8 @@
 import './SignUpForm.css'
 import {useEffect, useState} from "react";
 import {useSignup} from "../hooks/useSignup";
-import eyeOpen from "../assets/eye_open.png";
-import eyeClosed from "../assets/eye_closed.png";
+import eyeOpen from "../assets/eye_open_icon.png";
+import eyeClosed from "../assets/eye_closed_icon.png";
 
 function SignUpForm(props) {
 

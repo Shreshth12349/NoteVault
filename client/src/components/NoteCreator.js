@@ -1,7 +1,7 @@
 import "./NoteCreator.css";
 import {useState, useRef, useEffect, useContext} from "react";
 import {useAuthContext} from "../hooks/useAuthContext";
-import baseUrl from "../config";
+import apiUrl from "../config";
 import NotesContext from "../Contexts/NotesContext";
 
 function NoteCreator() {
@@ -27,7 +27,7 @@ function NoteCreator() {
             return false
         }
         try {
-            const response = await fetch(`${baseUrl}/notes`, {
+            const response = await fetch(`${apiUrl}/notes`, {
                 method: "POST",
                 headers: {
                     "Authorization": `Bearer ${user.token}`,

@@ -1,6 +1,6 @@
 import {useContext, useState} from "react";
 import { useAuthContext } from "./useAuthContext"; // Assumes you have this custom hook
-import baseUrl from "../config";
+import apiUrl from "../config";
 import activeNoteContext from "../Contexts/ActiveNoteContext";
 
 export const useNoteDelete = () => {
@@ -20,7 +20,7 @@ export const useNoteDelete = () => {
         }
 
         try {
-            const response = await fetch(`${baseUrl}/notes/${noteId}`, {
+            const response = await fetch(`${apiUrl}/notes/${noteId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${user.token}`

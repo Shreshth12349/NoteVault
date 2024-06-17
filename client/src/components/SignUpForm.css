@@ -36,6 +36,7 @@
     border: none;
     border-bottom: 1px solid black;
     background: none;
+    outline: none;
 }
 .sign-up-container button {
     margin-top: 2em;

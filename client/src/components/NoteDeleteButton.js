@@ -1,4 +1,4 @@
-import bin from '../assets/bin.png';
+import bin from '../assets/bin_icon.png';
 import './NoteDeleteButton.css'
 import {useNoteDelete} from "../hooks/useDeleteNote";
 import DeleteConfirmation from "./DeleteConfirmation";
@@ -17,7 +17,7 @@ function NoteDeleteButton(props) {
         }
     };
     const handleClick = () => {
-        setShowDeleteConfirmation(true)
+        setShowDeleteConfirmation(!showDeleteConfirmation)
         console.log("Set to show")
     }
     const cancelConfirmation = () => {

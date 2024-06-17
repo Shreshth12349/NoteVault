@@ -4,12 +4,15 @@
 }
 
 .color-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 0.5rem;
     right: 0.5rem;
-    width: 1rem;
+    width: 1.5rem;
     height: 1rem;
-    border-radius: 1rem;
+    border-radius: 0.75rem;
     border: 2px solid black;
 }
 
@@ -30,7 +33,10 @@
     height: 1.1rem;
     width: 1.1rem;
     border-radius: 0.7rem;
-    border: 1px solid black;
+    border: 0.5px solid black;
+}
+.color-tiles:hover {
+    outline: 1px solid black;
 }
 #tile1 {
     background: #D37676;
@@ -47,5 +53,9 @@
 
 #active {
     border: 3px;
+}
+
+.edit-icon {
+    height:11px;
 }
 

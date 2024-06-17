@@ -3,9 +3,10 @@ import {useCallback, useContext, useEffect, useRef, useState} from "react";
 import ColorSelector from "./ColorSelector";
 import ActiveNoteContext from "../Contexts/ActiveNoteContext";
 import {useAuthContext} from "../hooks/useAuthContext";
-import baseUrl from "../config";
+import apiUrl from "../config";
 import NoteDeleteButton from "./NoteDeleteButton";
 import NotesContext from "../Contexts/NotesContext";
+import ShareButton from "./ShareButton";
 
 function NoteCardEditMode(props) {
     const { activeNote, setActiveNote } = useContext(ActiveNoteContext)
@@ -25,13 +26,13 @@ function NoteCardEditMode(props) {
             return
         }
         try {
-            const response = await fetch(`${baseUrl}/notes/${id}`, {
+            const response = await fetch(`${apiUrl}/notes/${id}`, {
                 method: 'PUT',
                 headers: {
                     "Authorization": `Bearer ${user.token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ title: title, body: body, color: color})
+                body: JSON.stringify({ title: title.trimEnd(), body: body.trimEnd(), color: color})
             });
             if (!response.ok) {
                 throw new Error('Failed to update note');
@@ -98,7 +99,6 @@ function NoteCardEditMode(props) {
                 onChange={(e) => handleBodyChange(e)}
                 name="active-note-body"
             />
-            <div className="close-edit-mode-button" onClick={closeButtonClickHandler} style={closeButtonStyle}>Close</div>
             <ColorSelector
                 showColorPalette={showColorPalette}
                 activateColorPalette={activateColorPalette}
@@ -106,7 +106,14 @@ function NoteCardEditMode(props) {
                 setColor={setColor}
                 activeColor={color}
             />
-            <NoteDeleteButton class="delete-button" color={color} id={id}/>
+            <div className={"options-tray"}>
+                <ShareButton color={color} noteId={id}/>
+                <NoteDeleteButton color={color} id={id}/>
+                <div className="close-edit-mode-button" onClick={closeButtonClickHandler}
+                     style={closeButtonStyle}>Close
+                </div>
+
+            </div>
         </div>
     );
 }

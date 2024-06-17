@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start": "node index.js",
-    "vercel-build": "echo hello"
+    "start": "node index.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
@@ -12,6 +11,7 @@
     "mongodb": "^6.6.0",
     "mongoose": "^8.3.2",
     "morgan": "^1.10.0",
+    "short-unique-id": "^5.2.0",
     "validator": "^13.12.0"
   }
 }

@@ -1,3 +1,3 @@
-const baseUrl = 'https://notevault-ah5r.onrender.com'
+const apiUrl = 'http://localhost:8080'
 
-export default baseUrl;
+export default apiUrl;

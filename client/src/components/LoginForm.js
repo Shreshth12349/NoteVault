@@ -2,8 +2,8 @@ import './LoginForm.css'
 import {useState} from "react";
 import {useLogin} from "../hooks/useLogin";
 import {useNavigate} from "react-router-dom";
-import eyeOpen from '../assets/eye_open.png'
-import eyeClosed from '../assets/eye_closed.png'
+import eyeOpen from '../assets/eye_open_icon.png'
+import eyeClosed from '../assets/eye_closed_icon.png'
 
 function LoginForm(props) {
     const navigate = useNavigate()
