@@ -15,7 +15,9 @@ const port = process.env.PORT || 8080;
 // Middleware
 app.use(morgan('dev'));
 
-app.use(cors())
+app.use(cors({
+    origin: '*',
+}));
 
 
 app.use(express.json());
