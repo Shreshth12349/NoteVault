@@ -1,3 +1,3 @@
-const apiUrl = 'https://notevault-ah5r.onrender.com'
+const apiUrl = 'https://note-vault-api-lake.vercel.app/'
 
 export default apiUrl;
